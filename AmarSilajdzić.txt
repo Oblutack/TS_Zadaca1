@@ -1,0 +1,65 @@
+// Konkretna podklasa koja predstavlja nenamješten stan
+class NenamjestenStan : Stan
+{
+    public NenamjestenStan(int brojKvadrata, Lokacija lokacija, bool internet)
+        : base(brojKvadrata, lokacija, false, internet)
+    {
+    }
+
+    public override void Ispisi()
+    {
+        Console.WriteLine($"{BrojKvadrata} {Lokacija} Nenamjesten {Internet}");
+    }
+
+    public override decimal ObracunajCijenuNajma()
+    {
+        decimal osnovnaCijena = Lokacija == Lokacija.Gradsko ? 200 : 150;
+        decimal cijenaKvadrata = 1;
+        decimal cijena = osnovnaCijena + BrojKvadrata * cijenaKvadrata;
+        if (Internet)
+        {
+            cijena *= 1.02m;
+        }
+        return cijena;
+    }
+}
+
+// Konkretna podklasa koja predstavlja namješten stan
+class NamjestenStan : Stan
+{
+    public decimal VrijednostNamjestaja { get; }
+    public int BrojAparata { get; }
+
+    public NamjestenStan(int brojKvadrata, Lokacija lokacija, bool internet, decimal vrijednostNamjestaja, int brojAparata)
+        : base(brojKvadrata, lokacija, true, internet)
+    {
+        VrijednostNamjestaja = vrijednostNamjestaja;
+        BrojAparata = brojAparata;
+    }
+
+    public override void Ispisi()
+    {
+        Console.WriteLine($"{BrojKvadrata} {Lokacija} Namjesten {Internet} {VrijednostNamjestaja} {BrojAparata}");
+    }
+
+    public override decimal ObracunajCijenuNajma()
+    {
+        decimal osnovnaCijena = Lokacija == Lokacija.Gradsko ? 200 : 150;
+        decimal cijenaKvadrata = 1;
+        decimal cijena = osnovnaCijena + BrojKvadrata * cijenaKvadrata;
+        if (Internet)
+        {
+            cijena *= 1.02m;
+        }
+
+        if (BrojAparata < 3)
+        {
+            cijena += 0.01m * VrijednostNamjestaja;
+        }
+        else
+        {
+            cijena += 0.02m * VrijednostNamjestaja;
+        }
+        return cijena;
+    }
+}

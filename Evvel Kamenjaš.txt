@@ -1,0 +1,27 @@
+// Enumeracija za definiranje lokacija stanova
+enum Lokacija
+{
+    Gradsko,
+    Prigradsko
+}
+
+// Apstraktna klasa koja predstavlja opću strukturu stanova
+abstract class Stan
+{
+    public int BrojKvadrata { get; }
+    public Lokacija Lokacija { get; }
+    public bool Namjesten { get; }
+    public bool Internet { get; }
+
+    public Stan(int brojKvadrata, Lokacija lokacija, bool namjesten, bool internet)
+    {
+        BrojKvadrata = brojKvadrata;
+        Lokacija = lokacija;
+        Namjesten = namjesten;
+        Internet = internet;
+    }
+
+    // Apstraktne metode koje će biti implementirane u podklasama
+    public abstract void Ispisi();
+    public abstract decimal ObracunajCijenuNajma();
+}
